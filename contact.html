@@ -87,75 +87,77 @@
 
                                 <script>
 
-                                    $(document).on("click", "#submit", function(event){
-                                        event.preventDefault();
-                                        validate();});
 
-                                    function validate() {
-                                        var validar=/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i;
-                                        var userEmail = $("#email");
+                                function validate() {
+                                var validar=/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i;
+                                var userEmail = $("#email");
 
-                                        if (!userEmail.val()) {
-                                            userEmail.style.border = "2px solid red";
-                                            return false;
-                                        }
-                                        else {
-                                            if(userEmail.val().search(validar)==0){
-                                                userEmail.style.border = "2px solid green";
-                                                sendEmail();
-                                            }
-                                            else { userEmail.style.border = "2px solid red";} }
+                                if (!userEmail.val()) {
+                                userEmail.css("border","2px solid red");
+                                return false;
+                                }
+                                else {
+                                if(userEmail.val().search(validar)==0){
+                                userEmail.css("border","2px solid green");
+                                sendEmail();
+                                }
+                                else { userEmail.css("border","2px solid red");} }
 
 
-                                    }
-
-                                    function sendEmail(){
-                                        var fullUrl =  location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-                                        var userEmail = $("#email");
-                                        var userName = $("#author");
-                                        var userMessage = $("#text");
-                                        var formData = $('#emailForm').serialize();
-                                        $("#opov").text("Пожалуйста подождите...");
-
-                                        $.ajax({
-                                            url: fullUrl+'/send',
-                                            type: 'POST',
-                                            data: formData,
-                                            success: function(result) {
-
-                                                event.preventDefault();
-                                                if (!userName.val()) {
-                                                    userName.style.border = "2px solid red";
-                                                    return false;
-                                                }
-                                                else  {userName.style.border = "2px solid green";}
-
-                                                if (!userMessage.val()) {
-                                                    userMessage.style.border = "2px solid red";
-                                                    return false;
-                                                }
-                                                else  {userMessage.style.border = "2px solid green";}
+                                }
 
 
-                                                $("#opov").empty().text(result);
-                                                /*Очистка формы после отправки*/
-                                                userName.val("");
-                                                userEmail.val("");
-                                                userMessage.val("");
-                                                return true;
 
-                                            },
-
-                                            error: function(e) {
-                                                $("#opov").empty().text("There is some error to send email, Error code:"+e.status +", Error message:"+e.statusText);
-                                            },
-                                            dataType: "html",
-                                            timeout: 60000,
-
-                                        });
-                                    }
+                                /*----END Validation----*/
 
 
+                                /*----Email----*/
+                                function sendEmail(){
+                                var fullUrl =  location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+                                var userEmail = $("#email");
+                                var userName = $("#author");
+                                var userMessage = $("#text");
+                                var formData = $('#emailForm').serialize();
+                                $("#opov").text("Пожалуйста подождите...");
+
+                                $.ajax({
+                                url: fullUrl+'/send',
+                                type: 'POST',
+                                data: formData,
+                                success: function(result) {
+
+                                event.preventDefault();
+                                if (!userName.val()) {
+                                userName.css("border", "red 2px solid");
+                                return false;
+                                }
+                                else  {userName.css("border", "2px solid green");
+                                }
+
+                                if (!userMessage.val()) {
+                                userMessage.css("border", "red 2px solid");
+                                return false;
+                                }
+                                else  {userMessage.css("border", "green 2px solid");}
+
+
+                                $("#opov").empty().text(result);
+                                /*Очистка формы после отправки*/
+
+                                userName.val("");
+                                userEmail.val("");
+                                userMessage.val("");
+                                return true;
+                                },
+
+                                error: function(e) {
+                                $("#opov").empty().text("При отправке сообщения,произошла ошибка: Error code:"+e.status +", Error message:"+e.statusText);
+                                },
+                                dataType: "html",
+                                timeout: 60000,
+
+                                });
+                                }
 
                                 </script>
 

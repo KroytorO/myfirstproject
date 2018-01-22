@@ -75,15 +75,15 @@ $(document).ready(function(){
         var userEmail = $("#email");
 
         if (!userEmail.val()) {
-            userEmail.style.border = "2px solid red";
+            userEmail.css("border","2px solid red");
             return false;
         }
         else {
             if(userEmail.val().search(validar)==0){
-                userEmail.style.border = "2px solid green";
+                userEmail.css("border","2px solid green");
                 sendEmail();
             }
-        else { userEmail.style.border = "2px solid red";} }
+        else { userEmail.css("border","2px solid red");} }
 
 
     }
@@ -110,16 +110,17 @@ $(document).ready(function(){
 
                     event.preventDefault();
                     if (!userName.val()) {
-                        userName.style.border = "2px solid red";
+                        userName.css("border", "red 2px solid");
                         return false;
                     }
-                    else  {userName.style.border = "2px solid green";}
+                    else  {userName.css("border", "2px solid green");
+                       }
 
                     if (!userMessage.val()) {
-                        userMessage.style.border = "2px solid red";
+                        userMessage.css("border", "red 2px solid");
                         return false;
                     }
-                    else  {userMessage.style.border = "2px solid green";}
+                    else  {userMessage.css("border", "green 2px solid");}
 
 
                     $("#opov").empty().text(result);
