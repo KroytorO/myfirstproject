@@ -3,14 +3,14 @@
     <meta charset=utf-8 />
     <title>Coffee</title>
 
-    <link href="templatemo_style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="coda-slider.css" type="text/css" charset="utf-8" />
+    <link href="/templatemo_style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/coda-slider.css" type="text/css" charset="utf-8" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/style.css"/>
 
-    <script src="jquery-1.11.1.min.js"></script>
-    <script src="script.js"></script>
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/jquery-1.11.1.min.js"></script>
+    <script src="/script.js"></script>
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
 
@@ -93,14 +93,14 @@
 
                                     function validate() {
                                         var validar=/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i;
-                                        var userEmail = document.getElementById("email");
+                                        var userEmail = $("#email");
 
-                                        if (!userEmail.value) {
+                                        if (!userEmail.val()) {
                                             userEmail.style.border = "2px solid red";
                                             return false;
                                         }
                                         else {
-                                            if(userEmail.value.search(validar)==0){
+                                            if(userEmail.val().search(validar)==0){
                                                 userEmail.style.border = "2px solid green";
                                                 sendEmail();
                                             }
@@ -111,9 +111,9 @@
 
                                     function sendEmail(){
                                         var fullUrl =  location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-                                        var userEmail =document.getElementById("email");
-                                        var userName = document.getElementById("author");
-                                        var userMessage = document.getElementById("text");
+                                        var userEmail = $("#email");
+                                        var userName = $("#author");
+                                        var userMessage = $("#text");
                                         var formData = $('#emailForm').serialize();
                                         $("#opov").text("Пожалуйста подождите...");
 
@@ -124,13 +124,13 @@
                                             success: function(result) {
 
                                                 event.preventDefault();
-                                                if (!userName.value) {
+                                                if (!userName.val()) {
                                                     userName.style.border = "2px solid red";
                                                     return false;
                                                 }
                                                 else  {userName.style.border = "2px solid green";}
 
-                                                if (!userMessage.value) {
+                                                if (!userMessage.val()) {
                                                     userMessage.style.border = "2px solid red";
                                                     return false;
                                                 }
@@ -139,12 +139,9 @@
 
                                                 $("#opov").empty().text(result);
                                                 /*Очистка формы после отправки*/
-                                                var userEmails = $("#email");
-                                                var userNames = $("#author");
-                                                var userMessages = $("#text");
-                                                userNames.val("");
-                                                userEmails.val("");
-                                                userMessages.val("");
+                                                userName.val("");
+                                                userEmail.val("");
+                                                userMessage.val("");
                                                 return true;
 
                                             },
@@ -190,7 +187,7 @@
         </div>
     </div>
 </div>
-<script src="js/preloader.js" type="text/javascript"></script>
+<script src="/js/preloader.js" type="text/javascript"></script>
 </body>
 
 </html>

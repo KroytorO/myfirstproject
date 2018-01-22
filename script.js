@@ -72,14 +72,14 @@ $(document).ready(function(){
 
     function validate() {
         var validar=/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i;
-        var userEmail = document.getElementById("email");
+        var userEmail = $("#email");
 
-        if (!userEmail.value) {
+        if (!userEmail.val()) {
             userEmail.style.border = "2px solid red";
             return false;
         }
         else {
-            if(userEmail.value.search(validar)==0){
+            if(userEmail.val().search(validar)==0){
                 userEmail.style.border = "2px solid green";
                 sendEmail();
             }
@@ -96,9 +96,9 @@ $(document).ready(function(){
     /*----Email----*/
     function sendEmail(){
         var fullUrl =  location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-        var userEmail =document.getElementById("email");
-        var userName = document.getElementById("author");
-        var userMessage = document.getElementById("text");
+        var userEmail = $("#email");
+        var userName = $("#author");
+        var userMessage = $("#text");
             var formData = $('#emailForm').serialize();
             $("#opov").text("Пожалуйста подождите...");
 
@@ -109,13 +109,13 @@ $(document).ready(function(){
                 success: function(result) {
 
                     event.preventDefault();
-                    if (!userName.value) {
+                    if (!userName.val()) {
                         userName.style.border = "2px solid red";
                         return false;
                     }
                     else  {userName.style.border = "2px solid green";}
 
-                    if (!userMessage.value) {
+                    if (!userMessage.val()) {
                         userMessage.style.border = "2px solid red";
                         return false;
                     }
@@ -124,12 +124,10 @@ $(document).ready(function(){
 
                     $("#opov").empty().text(result);
                     /*Очистка формы после отправки*/
-                    var userEmails = $("#email");
-                    var userNames = $("#author");
-                    var userMessages = $("#text");
-                    userNames.val("");
-                    userEmails.val("");
-                    userMessages.val("");
+
+                    userName.val("");
+                    userEmail.val("");
+                    userMessage.val("");
                     return true;
                 },
 
